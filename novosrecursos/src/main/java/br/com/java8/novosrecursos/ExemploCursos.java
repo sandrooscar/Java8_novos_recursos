@@ -3,6 +3,10 @@ package br.com.java8.novosrecursos;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class Curso {
@@ -60,6 +64,35 @@ public class ExemploCursos {
 		System.out.println(total);	
 		
 		Stream<String> nomes = cursos.stream().map(Curso::getNome);
+		
+		cursos.stream()
+				.filter(c -> c.getAlunos() >= 100)
+				.findAny()
+				.ifPresent(c -> System.out.println(c.getNome()));
+		
+		OptionalDouble media = cursos.stream()
+				.filter(c -> c.getAlunos() >= 100)
+				.mapToInt(Curso::getAlunos)
+				.average();
+		media.ifPresent(c -> System.out.println(media.getAsDouble()));
+		
+		List<Curso> listaFiltrada = cursos.stream()
+			.filter(c -> c.getAlunos() >= 100)
+			.collect(Collectors.toList());
+		System.out.println(listaFiltrada.size());
+		
+		cursos.stream()
+			.filter(c -> c.getAlunos() >= 100)
+			.collect(Collectors.toMap(
+					c -> c.getNome(), 
+					c -> c.getAlunos()))
+			.forEach((nome, alunos) -> System.out.println(nome + " tem " + alunos + " alunos"));
+		
+		cursos.stream()
+			.filter(c -> c.getAlunos() > 50)
+			.findFirst()
+			.ifPresent(c -> System.out.println(c.getNome()));
+		
 	}
 
 }
