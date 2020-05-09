@@ -18,6 +18,7 @@ public class OrdenaStrings {
 				return 1;
 			return 0;
 		});
+		palavras.sort((String s1, String s2) -> Integer.compare(s1.length(), s2.length()));
 		System.out.println(palavras);
 		palavras.forEach(s -> System.out.println(s));
 	}
