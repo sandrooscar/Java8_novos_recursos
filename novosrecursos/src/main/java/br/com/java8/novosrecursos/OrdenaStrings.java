@@ -1,9 +1,9 @@
 package br.com.java8.novosrecursos;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class OrdenaStrings {
 	public static void main(String[] args) {
@@ -11,11 +11,25 @@ public class OrdenaStrings {
 		palavras.add("alura online");
 		palavras.add("editora casa do código");
 		palavras.add("caelum");
-		Collections.sort(palavras, new ComparadorPorTamanho());
+//		Collections.sort(palavras, new ComparadorPorTamanho());
+		palavras.sort(new ComparadorPorTamanho());
 		System.out.println(palavras);
+//		for (String string : palavras) {
+//			System.out.println(string);
+//		}
+		
+		Consumer<String> consumidor = new ImprimeNaLinha();
+		palavras.forEach(consumidor);
 	}
 }
 
+class ImprimeNaLinha implements Consumer<String>{
+
+	public void accept(String s) {
+		System.out.println(s);
+	}
+	
+}
 class ComparadorPorTamanho implements Comparator<String>{
 
 	public int compare(String s1, String s2) {
