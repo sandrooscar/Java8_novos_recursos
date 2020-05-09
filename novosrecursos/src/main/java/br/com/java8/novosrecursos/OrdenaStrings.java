@@ -18,18 +18,16 @@ public class OrdenaStrings {
 //			System.out.println(string);
 //		}
 		
-		Consumer<String> consumidor = new ImprimeNaLinha();
-		palavras.forEach(consumidor);
+		palavras.forEach(new Consumer<String>(){
+
+			public void accept(String s) {
+				System.out.println(s);
+			}
+			
+		});
 	}
 }
 
-class ImprimeNaLinha implements Consumer<String>{
-
-	public void accept(String s) {
-		System.out.println(s);
-	}
-	
-}
 class ComparadorPorTamanho implements Comparator<String>{
 
 	public int compare(String s1, String s2) {
